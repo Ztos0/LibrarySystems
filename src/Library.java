@@ -9,7 +9,7 @@ public class Library {
 
     private void MainMenu() {
         while (true) {
-            String[] options = {"Add Book", "Add Librarian", "Book Info", "Librarian Info", "Exit"};
+            String[] options = {"Add Book", "Add Renter Info", "Book Info", "Renter Info", "Exit"};
             int selection = JOptionPane.showOptionDialog(null, "Select an action:",
                     "Library Manager", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
 
@@ -33,14 +33,13 @@ public class Library {
                     break;
                 case 1:
 
-
                     break;
                 case 2:
                     break;
-                case 3:
-                    break;
                 case 4:
-                    System.exit(0);
+                    break;
+                case 3:
+                    System.exit(0); // this exits it when they press exit
             }
         }
     }
