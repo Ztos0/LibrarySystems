@@ -48,4 +48,6 @@ public class Transaction {
     public void setTimeBookOut(double timeBookOut) {
         this.timeBookOut = timeBookOut;
     }
+
+    //Adding stuff to test
 }
