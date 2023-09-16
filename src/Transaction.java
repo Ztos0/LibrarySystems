@@ -5,7 +5,7 @@ import java.util.concurrent.TimeUnit;
 
 public class Transaction {
 
-    @Override
+   /* @Override
     public String toString(){
         String format = "%-20s%s%n";
         StringBuilder sb = new StringBuilder();
@@ -17,7 +17,8 @@ public class Transaction {
         sb.append(String.format(format, "Is the book lost:", bookLost));
         sb.append("+---------------------+\n");
         return sb.toString();
-    }
+    }*/
+
     private Date takenDate;
 
     private Date returnDate;
