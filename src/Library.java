@@ -11,6 +11,8 @@ public class Library {
     public Library(){
         Books = new ArrayList<>();// add these to try and fix arrays
         Users = new ArrayList<>();// add these to try and fix arrays
+
+
     }
 
 
@@ -65,10 +67,35 @@ public class Library {
 
                     break;
                 case 2:
+
+                    String bookInfo = JOptionPane.showInputDialog(null, "Enter Book Name:");
+                    for (Book book : Books) {
+                        if (book.getBookName().equalsIgnoreCase(bookInfo)) {
+                            // Display book information
+                            JOptionPane.showMessageDialog(null, book.toString());
+                            return;
+                        }
+                    }
+                    JOptionPane.showMessageDialog(null, "Book not found.");
+
+
+
+
                     break;
                 case 3:
+                    String userInfo = JOptionPane.showInputDialog(null, "Enter Renter Name:");
+                    for (User user : Users) {
+                        if (user.getUserName().equalsIgnoreCase(userInfo)) {
+                            // Display renter information
+                            JOptionPane.showMessageDialog(null, user.toString());
+                            return;
+                        }
+                    }
+                    JOptionPane.showMessageDialog(null, "Renter not found.");
+
                     break;
                 case 4:
+
                     System.exit(0); // this exits it when they press exit
             }
         }

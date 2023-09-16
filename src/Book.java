@@ -1,6 +1,18 @@
 package PACKAGE_NAME;
 
     public class Book {
+        @Override
+        public String toString() {
+            return "Book{" +
+                    " Book Name" + bookName + '\'' +
+                    " Book Genre =" + bookGenre + '\'' +
+                    " Book Author =" + bookAuthor + '\'' +
+                    " Book Publisher =" + bookPublisher + '\'' +
+                    " Book ReleaseDate =" + bookReleaseDate + '\'' +
+                    " Book Cost =" + bookCost +
+                    " Book Date ='" + bookDate + '\'' +
+                    '}';
+        }
 
         private String bookName;
         private String bookGenre;
