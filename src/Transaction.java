@@ -49,5 +49,5 @@ public class Transaction {
         this.timeBookOut = timeBookOut;
     }
 
-    //Adding stuff to test
+
 }

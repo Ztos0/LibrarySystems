@@ -66,9 +66,7 @@ package PACKAGE_NAME;
             this.bookDate = bookDate;
         }
 
-        //Adding stuff just to test
-        //Adding stuff to understand
-        //Love is blind
+
     }
 
 
