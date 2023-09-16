@@ -2,9 +2,11 @@ package PACKAGE_NAME;
 
 import javax.swing.*;
 import java.util.ArrayList;
+
 public class Library {
 
-    private ArrayList<Book> Books;
+    private ArrayList<Book> Books;// these are never used, we need to fix these
+    private ArrayList<User> Users; // these are never used, we need to fix these
 
 
     private void MainMenu() {
@@ -15,7 +17,7 @@ public class Library {
 
             switch (selection) { //each case in the selection is in order of the String[] options
                 case 0:
-                    String bookName = JOptionPane.showInputDialog(null,"Enter Book Name:");
+                    String bookName = JOptionPane.showInputDialog(null, "Enter Book Name:");
                     String bookGenre = JOptionPane.showInputDialog(null, "Enter Book Genre:");
                     String bookAuthor = JOptionPane.showInputDialog(null, "Enter Book Author:");
                     String bookPublisher = JOptionPane.showInputDialog(null, "Enter Book Publisher:");
@@ -28,10 +30,32 @@ public class Library {
                     Book newBook = new Book(bookName, bookGenre, bookAuthor, bookPublisher, bookReleaseDate, bookCost, bookDate);
 
                     newBook.setBookName(bookName);
-                    Books.add(newBook);
+                    Books.add(newBook);// this never reach the arraylist
                     break;
                 case 1:
 
+                    String userName = JOptionPane.showInputDialog(null, "Enter Renter Name:");
+                    if (userName == null) {
+                        //Check for cases when the user input doesn't give an input
+                    } else {
+                        String userID = JOptionPane.showInputDialog(null, "Enter Renter ID:");
+                        String userAge = JOptionPane.showInputDialog(null, "Enter Renter Age:");
+                        String userAddress = JOptionPane.showInputDialog(null, "Enter Renter Address:");
+                        String librarianName = JOptionPane.showInputDialog(null, "Enter Librarian Name:");
+
+                        try {
+                            int userAGE = Integer.parseInt(userAge);
+                            User newUser = new User(userName, userID, userAGE, userAddress, librarianName);
+                            Users.add(newUser);// this never reaches the arraylist
+
+                            // lets the user know the information was added successfully
+                            JOptionPane.showMessageDialog(null, "User information added successfully.");
+                        } catch (NumberFormatException e) {
+                            JOptionPane.showMessageDialog(null, "Invalid age entered. Please enter a valid number.");
+
+                        }//end catch
+                    }//end else
+                    // JOptionPane showInputDialog shows the input dialog option when the user selections " Add Renter Info"
 
 
                     break;
@@ -44,7 +68,8 @@ public class Library {
             }
         }
     }
-    public static void main(String[] args){
+
+    public static void main(String[] args) {
         Library library = new Library();
         library.MainMenu();
     }
