@@ -37,9 +37,9 @@ public class Library {
                     break;
                 case 2:
                     break;
-                case 4:
-                    break;
                 case 3:
+                    break;
+                case 4:
                     System.exit(0); // this exits it when they press exit
             }
         }
