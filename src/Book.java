@@ -1,21 +1,21 @@
 package PACKAGE_NAME;
 
     public class Book {
-        @Override
-        public String toString() {
-            String format = "%-20s%s%n";
-            StringBuilder sb = new StringBuilder();
-            sb.append("+---------------------+\n");
-            sb.append(String.format(format, "Book Name:", bookName));
-            sb.append(String.format(format, "Book Genre:", bookGenre));
-            sb.append(String.format(format, "Book Author:", bookAuthor));
-            sb.append(String.format(format, "Book Publisher:", bookPublisher));
-            sb.append(String.format(format, "Book Release Date:", bookReleaseDate));
-            sb.append(String.format(format, "Book Cost:", bookCost));
-            sb.append(String.format(format, "Book Date:", bookDate));
-            sb.append("+---------------------+\n");
-            return sb.toString();
-        }
+//        @Override
+//        public String toString() {
+//            String format = "%-20s%s%n";
+//            StringBuilder sb = new StringBuilder();
+//            sb.append("+---------------------+\n");
+//            sb.append(String.format(format, "Book Name:              \t", bookName));
+//            sb.append(String.format(format, "Book Genre:             \t", bookGenre));
+//            sb.append(String.format(format, "Book Author:            \t", bookAuthor));
+//            sb.append(String.format(format, "Book Publisher:       \t", bookPublisher));
+//            sb.append(String.format(format, "Book Release Date: \t", bookReleaseDate));
+//            sb.append(String.format(format, "Book Cost:                \t", bookCost));
+//            sb.append(String.format(format, "Book Date:                \t", bookDate));
+//            sb.append("+---------------------+\n");
+//            return sb.toString();
+//        }
 
 
         private String bookName;
