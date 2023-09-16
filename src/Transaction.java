@@ -12,8 +12,9 @@ public class Transaction {
         sb.append("+---------------------+\n");
         sb.append(String.format(format, "Date book was rented:", takenDate));
         sb.append(String.format(format, "Date book was returned:", returnDate));
+        sb.append(String.format(format, "Current due date for the book:", dueDate));
         sb.append(String.format(format, "Time the book was out for:", timeBookOut));
-        sb.append(String.format(format, "Is book lost:", bookLost));
+        sb.append(String.format(format, "Is the book lost:", bookLost));
         sb.append("+---------------------+\n");
         return sb.toString();
     }
@@ -27,15 +28,15 @@ public class Transaction {
 
     private double timeBookOut;
 
-    private double lateFee;
+    private double lateFee = 0.0;
 
     public Transaction(Date takenDate, Date returnDate, Date dueDate, boolean bookLost, double timeBookOut, double lateFee) {
         this.takenDate = takenDate;
-        this.returnDate = null;
+        this.returnDate = returnDate;
         this.dueDate = dueDate;
         this.bookLost = bookLost;
         this.timeBookOut = timeBookOut;
-        this.lateFee = 0.0;
+        this.lateFee = lateFee;
     }
 
     public Date getTakenDate() {
@@ -98,6 +99,13 @@ public class Transaction {
         return TimeUnit.DAYS.convert(diffInMilliseconds, TimeUnit.MILLISECONDS);
     }
 
+    public double timeBookOut(Date currentDate){
+
+        long diffInMilliseconds = currentDate.getTime() - returnDate.getTime();
+        return timeBookOut = TimeUnit.DAYS.convert(diffInMilliseconds, TimeUnit.MILLISECONDS);
+
+    }
+
     public boolean getBookLost() {
         return bookLost;
     }
@@ -109,10 +117,5 @@ public class Transaction {
     public double getTimeBookOut() {
         return timeBookOut;
     }
-
-    public void setTimeBookOut(double timeBookOut) {
-        this.timeBookOut = timeBookOut;
-    }
-
 
 }
