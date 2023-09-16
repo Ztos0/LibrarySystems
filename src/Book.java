@@ -6,15 +6,15 @@ package PACKAGE_NAME;
         private String bookGenre;
         private String bookAuthor;
         private String bookPublisher;
-        private String bookReleasedate;
+        private String bookReleaseDate;
         private Double bookCost;
 
-        public Book(String bookName, String bookGenre, String bookAuthor, String bookPublisher, String bookReleasedate,Double bookCost){
+        public Book(String bookName, String bookGenre, String bookAuthor, String bookPublisher, String bookReleaseDate,Double bookCost){
             this.bookName = bookName;
             this.bookGenre = bookGenre;
             this.bookAuthor = bookAuthor;
             this.bookPublisher = bookPublisher;
-            this.bookReleasedate = bookReleasedate;
+            this.bookReleaseDate = bookReleaseDate;
             this.bookCost = bookCost;
         }
         public String getBookName(){
@@ -29,8 +29,8 @@ package PACKAGE_NAME;
         public String getBookPublisher(){
             return bookPublisher;
         }
-        public String getbookReleasedate(){
-            return bookReleasedate;
+        public String getbookReleaseDate(){
+            return bookReleaseDate;
         }
         public Double getBookCost(){
             return bookCost;
@@ -38,7 +38,24 @@ package PACKAGE_NAME;
         public void setBookName(String bookName){
             this.bookName = bookName;
         }
+        public void setBookGenre(String bookGenre){
+            this.bookGenre = bookGenre;
+        }
+        public void setBookAuthor(String bookAuthor){
+            this.bookAuthor = bookAuthor;
+        }
 
+        public void setBookPublisher(String bookPublisher) {
+            this.bookPublisher = bookPublisher;
+        }
+
+        public void setBookCost(Double bookCost) {
+            this.bookCost = bookCost;
+        }
+
+        public void setbookReleaseDate(String bookReleaseDate) {
+            this.bookReleaseDate = bookReleaseDate;
+        }
     }
 
 
