@@ -5,6 +5,9 @@ import java.util.ArrayList;
 
 public class Library {
 
+    private String storedUsername = "";
+    private String storedPassword = "";
+
     private ArrayList<Book> Books;// these are never used, we need to fix these
     private ArrayList<User> Users; // these are never used, we need to fix these
 
@@ -13,6 +16,18 @@ public class Library {
         Users = new ArrayList<>();// add these to try and fix arrays
 
 
+    }
+
+    public void signUp(){
+        storedUsername = JOptionPane.showInputDialog("Enter a new username:");
+        storedPassword = JOptionPane.showInputDialog("Enter a new password: ");
+        JOptionPane.showMessageDialog(null, "Sign up successful!");
+    }
+    public boolean logIn(){
+        String username = JOptionPane.showInputDialog("Enter your username:");
+        String password = JOptionPane.showInputDialog("Enter your password:");
+
+        return storedUsername.equals(username) && storedPassword.equals(password);
     }
 
 
@@ -104,9 +119,41 @@ public class Library {
 
     public static void main(String[] args) {
         Library library = new Library();
+
+        String[] options = {"Sign Up", "Log in"};
+        int choice = JOptionPane.showOptionDialog(null, "Choose an action:",
+                "Library Access", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
+
+        boolean isLoginSuccessful = false;
+
+        while (!isLoginSuccessful) {
+            if (choice == 0) {
+                library.signUp();
+            }
+
+            isLoginSuccessful = library.logIn();
+
+            if (!isLoginSuccessful) {
+                String[] retryOptions = {"Sign Up", "Try Again", "Exit"};
+                int retryChoice = JOptionPane.showOptionDialog(null, "Login failed. What would you like to do next?",
+                        "Login", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, retryOptions, retryOptions[0]);
+
+                switch (retryChoice) {
+                    case 0: // Sign Up option chosen
+                        choice = 0;
+                        break;
+                    case 1: // Try Again option chosen
+                        choice = 1;
+                        break;
+                    case 2: // Exit option chosen
+                        System.exit(0);
+                        break;
+                }
+            }
+        }
+
+        JOptionPane.showMessageDialog(null, "Login successful!");
         library.MainMenu();
-
-
     }
 
 }//end of Library
