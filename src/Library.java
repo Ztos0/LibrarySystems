@@ -5,14 +5,33 @@ import java.util.ArrayList;
 
 public class Library {
 
-    private ArrayList<Book> Books;// An Array that stores book information
-    private ArrayList<User> Users; // An Array that stores user information
+    private LibraryUI libraryUI;
+
+    private ArrayList<Book> Books;// these are never used, we need to fix these
+    private ArrayList<User> Users; // these are never used, we need to fix these
 
     public Library(){
-        Books = new ArrayList<>();// creates a new Books array
-        Users = new ArrayList<>();// create a new Users array
+        libraryUI = new LibraryUI();
+        Books = new ArrayList<>();// add these to try and fix arrays
+        Users = new ArrayList<>();// add these to try and fix arrays
+    }
 
+    public void displayBookInfo(){
+        libraryUI.insertBookTable(Books);
+        libraryUI.displayTableInDialog("Book Information");
+    }
+    public void displayUserInfo(){
+        libraryUI.insertUserTable(Users);
+        libraryUI.displayTableInDialog("User Information");
+    }
+    public void addBook(Book book){
+        Books.add(book);
+        libraryUI.insertBookTable(Books);
+    }
 
+    public void addRenter(User user){
+        Users.add(user);
+        libraryUI.insertUserTable(Users);
     }
 
 
@@ -38,6 +57,7 @@ public class Library {
 
                     newBook.setBookName(bookName);
                     Books.add(newBook);// this never reach the arraylist
+                    libraryUI.insertUserTable(Users);
                     break;
                 case 1:
 
@@ -63,6 +83,7 @@ public class Library {
                         }//end catch
                     }//end else
                     // JOptionPane showInputDialog shows the input dialog option when the user selections " Add Renter Info"
+                    libraryUI.insertUserTable(Users);
 
 
                     break;
@@ -72,14 +93,16 @@ public class Library {
                     for (Book book : Books) {
                         if (book.getBookName().equalsIgnoreCase(bookInfo)) {
                             // Display book information
-                            JOptionPane.showMessageDialog(null, book.toString());
+//                            JOptionPane.showMessageDialog(null, book.toString());
+                            //display user informaton in a table
+                            ArrayList<Book> bookList = new ArrayList<>();
+                            bookList.add(book);
+                            libraryUI.insertBookTable(bookList);
+                            libraryUI.displayTableInDialog("Book Information");
                             return;
                         }
                     }
                     JOptionPane.showMessageDialog(null, "Book not found.");
-
-
-
 
                     break;
                 case 3:
@@ -87,7 +110,12 @@ public class Library {
                     for (User user : Users) {
                         if (user.getUserName().equalsIgnoreCase(userInfo)) {
                             // Display renter information
-                            JOptionPane.showMessageDialog(null, user.toString());
+//                            JOptionPane.showMessageDialog(null, user.toString());
+                            //display user informaton in a table
+                            ArrayList<User> userList = new ArrayList<>();
+                            userList.add(user);
+                            libraryUI.insertUserTable(userList);
+                            libraryUI.displayTableInDialog("User Information");
                             return;
                         }
                     }
@@ -103,7 +131,7 @@ public class Library {
 
     public static void main(String[] args) {
         Library library = new Library();
-        library.MainMenu();
+        library.MainMenu(); 
 
 
     }
