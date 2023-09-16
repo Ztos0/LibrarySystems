@@ -8,6 +8,11 @@ public class Library {
     private ArrayList<Book> Books;// these are never used, we need to fix these
     private ArrayList<User> Users; // these are never used, we need to fix these
 
+    public Library(){
+        Books = new ArrayList<>();// add these to try and fix arrays
+        Users = new ArrayList<>();// add these to try and fix arrays
+    }
+
 
     private void MainMenu() {
         while (true) {
@@ -72,8 +77,10 @@ public class Library {
     public static void main(String[] args) {
         Library library = new Library();
         library.MainMenu();
+
+
     }
 
-}
+}//end of Library
 
 
