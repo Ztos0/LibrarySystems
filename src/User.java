@@ -8,7 +8,7 @@ public class User {
         StringBuilder sb = new StringBuilder();
         sb.append("+---------------------+\n");
         sb.append(String.format(format, "Renter Name :\t", userName));
-        sb.append(String.format(format, "ID:\t\t", userID));
+        sb.append(String.format(format, "Library ID:\t\t", userID));
         sb.append(String.format(format, "Age:\t\t", userAge));
         sb.append(String.format(format, "Address:\t\t", userAddress));
         sb.append(String.format(format, "Librarian Name:\t", librarianName));

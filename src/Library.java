@@ -5,12 +5,12 @@ import java.util.ArrayList;
 
 public class Library {
 
-    private ArrayList<Book> Books;// these are never used, we need to fix these
-    private ArrayList<User> Users; // these are never used, we need to fix these
+    private ArrayList<Book> Books;// An Array that stores book information
+    private ArrayList<User> Users; // An Array that stores user information
 
     public Library(){
-        Books = new ArrayList<>();// add these to try and fix arrays
-        Users = new ArrayList<>();// add these to try and fix arrays
+        Books = new ArrayList<>();// creates a new Books array
+        Users = new ArrayList<>();// create a new Users array
 
 
     }
