@@ -11,11 +11,11 @@ public class Library {
     private ArrayList<Book> Books;// these are never used, we need to fix these
     private ArrayList<User> Users; // these are never used, we need to fix these
 
+    private LibraryUI LibUI = new LibraryUI();
+
     public Library(){
         Books = new ArrayList<>();// add these to try and fix arrays
         Users = new ArrayList<>();// add these to try and fix arrays
-
-
     }
 
     public void signUp(){
@@ -85,29 +85,41 @@ public class Library {
                 case 2:
 
                     String bookInfo = JOptionPane.showInputDialog(null, "Enter ID:");
+                    Book foundBook = null;
                     for (Book book : Books) {
                         if (book.getUserID().equalsIgnoreCase(bookInfo)) {
-                            // Display book information
-                            JOptionPane.showMessageDialog(null, book.toString());
-                            return;
+                            foundBook = book;
+                            break;
                         }
                     }
-                    JOptionPane.showMessageDialog(null, "Book not found.");
-
-
-
-
+                    if (foundBook != null) {
+                        ArrayList<Book> singleBookList = new ArrayList<>();
+                        singleBookList.add(foundBook);
+                        LibUI.displayBooks(singleBookList);
+                        LibUI.showTable();
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Book not found.");
+                    }
                     break;
+
                 case 3:
                     String userInfo = JOptionPane.showInputDialog(null, "Enter Renter ID:");
+                    User foundUser = null;
                     for (User user : Users) {
                         if (user.getUserID().equalsIgnoreCase(userInfo)) {
-                            // Display renter information
-                            JOptionPane.showMessageDialog(null, user.toString());
-                            return;
+                            foundUser = user;
+                            break;
                         }
                     }
-                    JOptionPane.showMessageDialog(null, "Renter ID not found.");
+                    if (foundUser != null) {
+                        ArrayList<User> singleUserList = new ArrayList<>();
+                        singleUserList.add(foundUser);
+                        LibUI.displayUsers(singleUserList);
+                        LibUI.showTable();
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Renter ID not found.");
+                    }
+
 
                     break;
                 case 4:
