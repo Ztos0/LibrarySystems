@@ -29,7 +29,7 @@ public class Library {
                     String bookGenre = JOptionPane.showInputDialog(null, "Enter Book Genre:");
                     String bookAuthor = JOptionPane.showInputDialog(null, "Enter Book Author:");
                     String bookPublisher = JOptionPane.showInputDialog(null, "Enter Book Publisher:");
-                    String bookReleaseDate = JOptionPane.showInputDialog(null, "Enter Book release date:");
+                    String bookReleaseDate = JOptionPane.showInputDialog(null, "Enter Book release date 00/00/0000:");
                     String bookCostStr = JOptionPane.showInputDialog(null, "Enter Book Price:");
                     String bookDate = JOptionPane.showInputDialog(null, "When was the book rented? 00/00/0000");
                     // JOptionPane showInputDialog shows the input dialog option when the user selections " Add Book"
