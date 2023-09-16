@@ -1,7 +1,10 @@
 package PACKAGE_NAME;
 
 import javax.swing.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class Library {
 
@@ -10,10 +13,12 @@ public class Library {
     private ArrayList<Book> Books;// these are never used, we need to fix these
     private ArrayList<User> Users; // these are never used, we need to fix these
 
+    private ArrayList<Transaction> Transactions;
     public Library(){
         libraryUI = new LibraryUI();
         Books = new ArrayList<>();// add these to try and fix arrays
         Users = new ArrayList<>();// add these to try and fix arrays
+        Transactions = new ArrayList<>();// add these to try and fix arrays
     }
 
     public void displayBookInfo(){
@@ -69,18 +74,32 @@ public class Library {
                         String userAge = JOptionPane.showInputDialog(null, "Enter Renter Age:");
                         String userAddress = JOptionPane.showInputDialog(null, "Enter Renter Address:");
                         String librarianName = JOptionPane.showInputDialog(null, "Enter Librarian Name:");
+                        String returnDateInput = JOptionPane.showInputDialog(null, "Enter return date (YYYY-MM-DD):");
 
                         try {
                             int userAGE = Integer.parseInt(userAge);
                             User newUser = new User(userName, userID, userAGE, userAddress, librarianName);
                             Users.add(newUser);// this never reaches the arraylist
 
+                            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                            Date returnDate = dateFormat.parse(returnDateInput);
+
+
+                            Date takenDate = new Date(); //declared date variables for constructor
+                            //Date returnDate = null;
+                            Transaction transact = new Transaction(takenDate, returnDate, null, false, 0.0, 0.0);
+                            Transactions.add(transact);
+
+                        } catch (NumberFormatException e) {
+                            JOptionPane.showMessageDialog(null, "Invalid age. Please enter a valid integer.");
+                        } catch (ParseException e) {
+                            JOptionPane.showMessageDialog(null, "Invalid date format. Please enter a date in YYYY-MM-DD format.");
+
+
+
                             // lets the user know the information was added successfully
                             JOptionPane.showMessageDialog(null, "User information added successfully.");
-                        } catch (NumberFormatException e) {
-                            JOptionPane.showMessageDialog(null, "Invalid age entered. Please enter a valid number.");
-
-                        }//end catch
+                        } //end catch
                     }//end else
                     // JOptionPane showInputDialog shows the input dialog option when the user selections " Add Renter Info"
                     libraryUI.insertUserTable(Users);
@@ -122,6 +141,7 @@ public class Library {
                     JOptionPane.showMessageDialog(null, "Renter not found.");
 
                     break;
+
                 case 4:
 
                     System.exit(0); // this exits it when they press exit
