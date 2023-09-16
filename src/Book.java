@@ -1,12 +1,13 @@
 package PACKAGE_NAME;
 
-public class Book {
+public class Book  {
     @Override
     public String toString() {
         String format = "%-20s%s%n";
         StringBuilder sb = new StringBuilder();
         sb.append("+---------------------+\n");
         sb.append(String.format(format, "Book Name:", bookName));
+        sb.append(String.format(format, "User ID:", userID));
         sb.append(String.format(format, "Book Genre:", bookGenre));
         sb.append(String.format(format, "Book Author:", bookAuthor));
         sb.append(String.format(format, "Book Publisher:", bookPublisher));
@@ -25,9 +26,11 @@ public class Book {
     private String bookReleaseDate;
     private Double bookCost;
     private String bookDate;
+    private String userID;
 
 
-    public Book(String bookName, String bookGenre, String bookAuthor, String bookPublisher, String bookReleaseDate,Double bookCost, String bookDate){
+    public Book(String userID,String bookName, String bookGenre, String bookAuthor, String bookPublisher, String bookReleaseDate,Double bookCost, String bookDate){
+        this.userID = userID;
         this.bookName = bookName;
         this.bookGenre = bookGenre;
         this.bookAuthor = bookAuthor;
@@ -80,6 +83,14 @@ public class Book {
     }
     public void setbookDate(String bookDate){
         this.bookDate = bookDate;
+    }
+
+    public String getUserID(){
+        return userID;
+    }
+
+    public void setUserID(String userID){
+        this.userID = userID;
     }
 
     //branching

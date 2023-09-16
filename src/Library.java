@@ -24,6 +24,7 @@ public class Library {
 
             switch (selection) { //each case in the selection is in order of the String[] options
                 case 0:
+                    String userID = JOptionPane.showInputDialog(null, "Enter Renter ID:");
                     String bookName = JOptionPane.showInputDialog(null, "Enter Book Name:");
                     String bookGenre = JOptionPane.showInputDialog(null, "Enter Book Genre:");
                     String bookAuthor = JOptionPane.showInputDialog(null, "Enter Book Author:");
@@ -34,7 +35,7 @@ public class Library {
                     // JOptionPane showInputDialog shows the input dialog option when the user selections " Add Book"
 
                     double bookCost = Double.parseDouble(bookCostStr);
-                    Book newBook = new Book(bookName, bookGenre, bookAuthor, bookPublisher, bookReleaseDate, bookCost, bookDate);
+                    Book newBook = new Book(userID,bookName, bookGenre, bookAuthor, bookPublisher, bookReleaseDate, bookCost, bookDate);
 
                     newBook.setBookName(bookName);
                     Books.add(newBook);// this never reach the arraylist
@@ -45,14 +46,14 @@ public class Library {
                     if (userName == null) {
                         //Check for cases when the user input doesn't give an input
                     } else {
-                        String userID = JOptionPane.showInputDialog(null, "Enter Renter ID:");
+                        String usersID = JOptionPane.showInputDialog(null, "Enter Renter ID:");
                         String userAge = JOptionPane.showInputDialog(null, "Enter Renter Age:");
                         String userAddress = JOptionPane.showInputDialog(null, "Enter Renter Address:");
                         String librarianName = JOptionPane.showInputDialog(null, "Enter Librarian Name:");
 
                         try {
                             int userAGE = Integer.parseInt(userAge);
-                            User newUser = new User(userName, userID, userAGE, userAddress, librarianName);
+                            User newUser = new User(userName, usersID, userAGE, userAddress, librarianName);
                             Users.add(newUser);// this never reaches the arraylist
 
                             // lets the user know the information was added successfully
@@ -68,9 +69,9 @@ public class Library {
                     break;
                 case 2:
 
-                    String bookInfo = JOptionPane.showInputDialog(null, "Enter Book Name:");
+                    String bookInfo = JOptionPane.showInputDialog(null, "Enter ID:");
                     for (Book book : Books) {
-                        if (book.getBookName().equalsIgnoreCase(bookInfo)) {
+                        if (book.getUserID().equalsIgnoreCase(bookInfo)) {
                             // Display book information
                             JOptionPane.showMessageDialog(null, book.toString());
                             return;
@@ -83,15 +84,15 @@ public class Library {
 
                     break;
                 case 3:
-                    String userInfo = JOptionPane.showInputDialog(null, "Enter Renter Name:");
+                    String userInfo = JOptionPane.showInputDialog(null, "Enter Renter ID:");
                     for (User user : Users) {
-                        if (user.getUserName().equalsIgnoreCase(userInfo)) {
+                        if (user.getUserID().equalsIgnoreCase(userInfo)) {
                             // Display renter information
                             JOptionPane.showMessageDialog(null, user.toString());
                             return;
                         }
                     }
-                    JOptionPane.showMessageDialog(null, "Renter not found.");
+                    JOptionPane.showMessageDialog(null, "Renter ID not found.");
 
                     break;
                 case 4:

@@ -2,6 +2,12 @@ package PACKAGE_NAME;
 
 public class User {
 
+    public User() {
+
+    }
+
+
+
     @Override
     public String toString() {
         String format = "%-20s%s%n";
