@@ -11,7 +11,7 @@ public class Transaction {
 
     private Date dueDate;
 
-    private boolean bookLost;
+    private char bookLost;
 
     private double timeBookOut;
 
@@ -19,14 +19,22 @@ public class Transaction {
 
     private double lateFee = 0.0;
 
-    public Transaction(Date takenDate, Date returnDate, Date dueDate, boolean bookLost, double timeBookOut, String renterID, double lateFee) {
+    public Transaction(String renterID, Date takenDate, Date returnDate, Date dueDate, char bookLost, double timeBookOut, double lateFee) {
+        this.renterID = renterID;
         this.takenDate = takenDate;
         this.returnDate = returnDate;
         this.dueDate = dueDate;
         this.bookLost = bookLost;
         this.timeBookOut = timeBookOut;
-        this.renterID = renterID;
         this.lateFee = lateFee;
+    }
+
+    public String getRenterID() {
+        return renterID;
+    }
+
+    public void setRenterID(String renterID) {
+        this.renterID = renterID;
     }
 
     public Date getTakenDate() {
@@ -53,11 +61,11 @@ public class Transaction {
         this.dueDate = dueDate;
     }
 
-    public boolean getBookLost() {
+    public char getBookLost() {
         return bookLost;
     }
 
-    public void setBookLost(boolean bookLost) {
+    public void setBookLost(char bookLost) {
         this.bookLost = bookLost;
     }
 
@@ -67,14 +75,6 @@ public class Transaction {
 
     public void setTimeBookOut(double timeBookOut){
         this.timeBookOut = timeBookOut;
-    }
-
-    public String getRenterID() {
-        return renterID;
-    }
-
-    public void setRenterID(String renterID) {
-        this.renterID = renterID;
     }
 
     public double getLateFee() {
