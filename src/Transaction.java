@@ -29,6 +29,9 @@ public class Transaction {
         this.lateFee = lateFee;
     }
 
+    public Transaction(String renterID, String takenDateInput, String returnDateInput, String bookLost) {
+    }
+
     public String getRenterID() {
         return renterID;
     }
