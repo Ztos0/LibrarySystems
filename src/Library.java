@@ -39,7 +39,7 @@ public class Library {
         // the passwordInput variable makes it so its hidden when user is inputting
         JOptionPane.showMessageDialog(null, "Sign up successful!");
     }
-    public boolean logIn() {
+    public boolean logIn() { // logIN method, creates inputdialog for username and password, and checks if password is null, if so return false.
         String username = JOptionPane.showInputDialog("Enter your username:");
         String password = passwordInput("Enter your password:");
 
@@ -53,7 +53,7 @@ public class Library {
 
 
 
-    private void MainMenu() {
+    private void MainMenu() { // main method for the option pane. has all cases, 0-6 which show or input information depending on which is selected.
         while (true) {
             String[] options = {"Add Book", "Add Renter Info", "Add Transaction Info", "Book Info", "Renter Info", "Transaction Info", "Exit"};
             int selection = JOptionPane.showOptionDialog(null, "Select an action:",
@@ -114,7 +114,7 @@ public class Library {
                         takenDate = dateFormat.parse(takenDateInput);
                     } catch (ParseException e) {
                         JOptionPane.showMessageDialog(null, "Invalid date format for taken date. Please use MM/DD/YYYY.");
-                        break; // Exit the current case if there's an error
+                        break; // exit the current case if there's an error
                     }
 
                     String returnDateInput = JOptionPane.showInputDialog(null, "Enter return date (MM/DD/YYYY):");
@@ -123,7 +123,7 @@ public class Library {
                         returnDate = dateFormat.parse(returnDateInput);
                     } catch (ParseException e) {
                         JOptionPane.showMessageDialog(null, "Invalid date format for return date. Please use MM/DD/YYYY.");
-                        break; // Exit the current case if there's an error
+                        break; // exit the current case if there's an error
                     }
 
                     String bookLostStr = JOptionPane.showInputDialog(null, "Is the book lost? Y/N");
@@ -131,7 +131,7 @@ public class Library {
                         JOptionPane.showMessageDialog(null, "Invalid input for the book's lost status.");
                         break;
                     }
-                    char bookLost = bookLostStr.toUpperCase().charAt(0); // Convert to uppercase and get the first character
+                    char bookLost = bookLostStr.toUpperCase().charAt(0); // convert to uppercase and get the first character
 
                     Transaction newTransaction = new Transaction(renterID, takenDate, returnDate, bookLost);
                     Transactions.add(newTransaction);
@@ -139,14 +139,13 @@ public class Library {
                     Date dueDate = newTransaction.calculateDueDate();
                     double durationGone = newTransaction.timeBookOut();
                     double lateFee = newTransaction.calculateLateFee();
-
                     //holds data to send it to case 5
                     break;
                 case 3:
                     String bookInfo = JOptionPane.showInputDialog(null, "Enter ID:");
                     ArrayList<Book> filteredBooks = new ArrayList<>();
 
-                    for (Book book : Books){
+                    for (Book book : Books){ // enhanced for loop that checks if the ID for book matches the one that is inputted, or already inputted
                         if (book.getUserID().equalsIgnoreCase(bookInfo)){
                             filteredBooks.add(book);
                         }
@@ -162,7 +161,7 @@ public class Library {
                 case 4:
                     String userInfo = JOptionPane.showInputDialog(null, "Enter Renter ID:");
                     User foundUser = null;
-                    for (User user : Users) {
+                    for (User user : Users) { // enhanced for loop that checks if the renter id matches the id that is previously inputted to show what was inputted before
                         if (user.getUserID().equalsIgnoreCase(userInfo)) {
                             foundUser = user;
                             break;
@@ -183,13 +182,13 @@ public class Library {
                     String transactionInfo = JOptionPane.showInputDialog(null, "Enter Renter ID:");
                     ArrayList<Transaction> filteredTransactions = new ArrayList<>();
 
-                    for (Transaction transaction : Transactions) {
+                    for (Transaction transaction : Transactions) { // enhanced for loop
                         if (transaction.getRenterID().equalsIgnoreCase(transactionInfo)) {
                             filteredTransactions.add(transaction);
                         }
                     }
 
-                    if (!filteredTransactions.isEmpty()) {
+                    if (!filteredTransactions.isEmpty()) { // uses libUI class to show table and uses an else statement to show that no transactions were found under that id
                         LibUI.displayTransactions(filteredTransactions);
                         LibUI.showTable();
                     } else {
@@ -203,7 +202,7 @@ public class Library {
         }
     }
 
-    public static String passwordInput(String message){
+    public static String passwordInput(String message){ 
         JPasswordField passwordField = new JPasswordField();
         Object[] obj = {message, passwordField};
         if (JOptionPane.showConfirmDialog(null, obj, "Password", JOptionPane.OK_CANCEL_OPTION) == JOptionPane.OK_OPTION){
@@ -212,7 +211,7 @@ public class Library {
         return null;
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) { // main, this is used to sign up and login, uses a while statement to determine if login is successful, if so shows optiondialog and then mainmenu
         Library library = new Library();
 
         String[] options = {"Sign Up", "Log in"};
@@ -248,7 +247,7 @@ public class Library {
         }
 
         JOptionPane.showMessageDialog(null, "Login successful!");
-        library.MainMenu();
+        library.MainMenu(); // sends user to mainmenu switch if successful login
     }
 
 }//end of Library
