@@ -124,55 +124,35 @@ public class Library {
 
                     break;
                 case 4:
-
-                   /* String renterID = JOptionPane.showInputDialog(null, "Enter Renter ID:");
-                    String takenDateString = JOptionPane.showInputDialog(null, "Enter Taken Date (MM/DD/YYYY):");
-                    String returnDateString = JOptionPane.showInputDialog(null, "Enter Return Date (MM/DD/YYYY):");
-                    String bookLostStr = JOptionPane.showInputDialog(null, "Was the Book Lost? (Y/N):");
-
-                    //Date takenDate = parseDate(takenDateString);
-                    //Date returnDate = parseDate(returnDateString);
-                    boolean bookLost = Boolean.parseBoolean(bookLostStr); //change boolean to a char
-
-                    Transaction transaction = new Transaction(takenDate, returnDate, null, bookLost, 0, renterID, 0);
-
-                    Date dueDate = transaction.calculateDueDate();
-                    double durationGone = transaction.timeBookOut(new Date());
-                    double lateFee = transaction.calculateLateFee();
-
-                    JOptionPane.showMessageDialog(null,
-                            "Due Date: " + dueDate +
-                                    "\nDuration Gone (in days): " + durationGone +
-                                    "\nLate Fee: $" + lateFee);
-
-                    break;
-                    */
-
                     String renterID = JOptionPane.showInputDialog(null, "Enter Renter ID:");
-
                     SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
 
                     String takenDateInput = JOptionPane.showInputDialog(null, "Enter taken date (MM/DD/YYYY):");
                     Date takenDate = null;
-
                     try {
                         takenDate = dateFormat.parse(takenDateInput);
                     } catch (ParseException e) {
-                        throw new RuntimeException("Invalid date format for taken date. Please use MM/DD/YYYY.");
+                        JOptionPane.showMessageDialog(null, "Invalid date format for taken date. Please use MM/DD/YYYY.");
+                        break; // Exit the current case if there's an error
                     }
 
                     String returnDateInput = JOptionPane.showInputDialog(null, "Enter return date (MM/DD/YYYY):");
                     Date returnDate = null;
-
                     try {
                         returnDate = dateFormat.parse(returnDateInput);
                     } catch (ParseException e) {
-                        throw new RuntimeException("Invalid date format for return date. Please use MM/DD/YYYY.");
+                        JOptionPane.showMessageDialog(null, "Invalid date format for return date. Please use MM/DD/YYYY.");
+                        break; // Exit the current case if there's an error
                     }
 
-                    String bookLost = JOptionPane.showInputDialog(null, "Is book lost? Y/N");
+                    String bookLostStr = JOptionPane.showInputDialog(null, "Is book lost? Y/N");
+                    if (bookLostStr == null || bookLostStr.isEmpty()) {
+                        JOptionPane.showMessageDialog(null, "Invalid input for book lost status.");
+                        break;
+                    }
+                    char bookLost = bookLostStr.toUpperCase().charAt(0); // Convert to uppercase and get the first character
 
-                    Transaction newTransaction = new Transaction(renterID, takenDate, returnDate, bookLost);
+                    Transaction newTransaction = new Transaction(renterID, takenDate, returnDate, bookLost); // Match the constructor from Transaction class
 
                     Date dueDate = newTransaction.calculateDueDate();
                     double durationGone = newTransaction.timeBookOut(new Date());
@@ -182,7 +162,7 @@ public class Library {
                             "Due Date: " + dueDate +
                                     "\nDuration Gone (in days): " + durationGone +
                                     "\nLate Fee: $" + lateFee);
-
+                    break;
                 case 5:
                     System.exit(0); // this exits it when they press exit
             }
