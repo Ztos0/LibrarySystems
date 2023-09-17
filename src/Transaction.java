@@ -19,14 +19,12 @@ public class Transaction {
 
     private double lateFee = 0.0;
 
-    public Transaction(String renterID, Date takenDate, Date returnDate, Date dueDate, char bookLost, double timeBookOut, double lateFee) {
+    public Transaction(String renterID, Date takenDate, Date returnDate, char bookLost) {
         this.renterID = renterID;
         this.takenDate = takenDate;
         this.returnDate = returnDate;
-        this.dueDate = dueDate;
         this.bookLost = bookLost;
-        this.timeBookOut = timeBookOut;
-        this.lateFee = lateFee;
+        this.dueDate = calculateDueDate();
     }
 
     public Transaction(String renterID, String takenDateInput, String returnDateInput, String bookLost) {
@@ -136,9 +134,7 @@ public class Transaction {
     }
 
     public double timeBookOut(Date currentDate){
-
-        long diffInMilliseconds = currentDate.getTime() - returnDate.getTime();
-        return timeBookOut = TimeUnit.DAYS.convert(diffInMilliseconds, TimeUnit.MILLISECONDS);
-
+        long diffInMilliseconds = currentDate.getTime() - takenDate.getTime();
+        return TimeUnit.DAYS.convert(diffInMilliseconds, TimeUnit.MILLISECONDS);
     }
 }
