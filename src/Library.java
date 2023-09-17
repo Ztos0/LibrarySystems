@@ -8,8 +8,8 @@ import java.util.Date;
 
 public class Library {
 
-    private String storedUsername = "";
-    private String storedPassword = "";
+    private String storedUsername = null;
+    private String storedPassword = null;
 
     private ArrayList<Book> Books;// these are never used, we need to fix these
     private ArrayList<User> Users; // these are never used, we need to fix these
@@ -25,12 +25,28 @@ public class Library {
 
     public void signUp(){
         storedUsername = JOptionPane.showInputDialog("Enter a new username:");
-        storedPassword = passwordInput("Enter a new password: "); // the passwordInput variable makes it so its hidden when user is inputting
+        //if statement to check if the password is empty, if it is, try again.
+        if (storedUsername == null || storedUsername.trim().isEmpty()){
+            JOptionPane.showMessageDialog(null, "Username cannot be empty. Try again.");
+            return;
+        }
+        storedPassword = passwordInput("Enter a new password: ");
+
+        if (storedPassword == null || storedPassword.trim().isEmpty()){
+            JOptionPane.showMessageDialog(null, "Password cannot be empty. Try again.");
+            return;
+        }
+        // the passwordInput variable makes it so its hidden when user is inputting
         JOptionPane.showMessageDialog(null, "Sign up successful!");
     }
-    public boolean logIn(){
+    public boolean logIn() {
         String username = JOptionPane.showInputDialog("Enter your username:");
         String password = passwordInput("Enter your password:");
+
+        if (storedUsername == null || storedPassword == null || username == null || password == null) {
+            return false;
+        }
+
 
         return storedUsername.equals(username) && storedPassword.equals(password);
     }
