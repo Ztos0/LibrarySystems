@@ -123,6 +123,28 @@ public class Library {
 
                     break;
                 case 4:
+                    String returnDateInput = JOptionPane.showInputDialog(null, "Enter return date (MM-DD-YYYY):");
+
+                    try {
+                        SimpleDateFormat dateFormat = new SimpleDateFormat("MM-dd-yyyy");
+                        Date returnDate = dateFormat.parse(returnDateInput);
+
+                        String renterID = JOptionPane.showInputDialog(null, "Enter Renter ID:");
+                        int age = Integer.parseInt(JOptionPane.showInputDialog(null, "Enter Age:"));
+                        String address = JOptionPane.showInputDialog(null, "Enter Address:");
+                        String name = JOptionPane.showInputDialog(null, "Enter Name:");
+
+                        Transaction transact = new Transaction(renterID, returnDate, address, false, age, 0.0);
+                        Transactions.add(transact);
+
+                    } catch (ParseException e) {
+                        JOptionPane.showMessageDialog(null, "Invalid date format. Please enter a date in MM-DD-YYYY format.");
+                    } catch (NumberFormatException e) {
+                        JOptionPane.showMessageDialog(null, "Invalid age. Please enter a valid integer.");
+                    }
+                    break;
+                case 5:
+            
 
                     System.exit(0); // this exits it when they press exit
             }
