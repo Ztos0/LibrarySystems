@@ -92,6 +92,7 @@ public class Transaction {
         this.lateFee = lateFee;
     }
 
+    //Created calculateDueDate method to determine the loaning period of books rented and when they're due
     public Date calculateDueDate() {
 
         Calendar calendar = Calendar.getInstance();
@@ -104,6 +105,7 @@ public class Transaction {
         return calendar.getTime();
     }
 
+    //Created isOverDue method to determine if a book is overdue
     public boolean isOverdue(){
         if (returnDate == null){
             return false;
@@ -112,6 +114,7 @@ public class Transaction {
         return returnDate.after(calculateDueDate());
     }
 
+    //Created calculateLateFee method to determine the late fee cost for books that are overdue
     public double calculateLateFee() {
 
         double lateFeeRatePerDay = 0.10;
@@ -125,6 +128,7 @@ public class Transaction {
         return lateFee;
     }
 
+    //Created calculateDaysOverdue method to determine how long a book has been overdue for
     private long calculateDaysOverdue() {
         Date currentDate = new Date();
         if (isOverdue()) {
@@ -138,6 +142,7 @@ public class Transaction {
     }
 
 
+    //Created timeBookOut method to show how long a book has been out for
     public double timeBookOut(){
         Date endDate = (returnDate != null) ? returnDate : new Date();
         long diffInMilliseconds = endDate.getTime() - takenDate.getTime();
