@@ -37,7 +37,7 @@ public class Library {
 
     private void MainMenu() {
         while (true) {
-            String[] options = {"Add Book", "Add Renter Info", "Book Info", "Renter Info", "Exit"};
+            String[] options = {"Add Book", "Add Renter Info", "Book Info", "Renter Info", "Transaction", "Exit"};
             int selection = JOptionPane.showOptionDialog(null, "Select an action:",
                     "Library Manager", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
 
@@ -125,32 +125,63 @@ public class Library {
                     break;
                 case 4:
 
+                   /* String renterID = JOptionPane.showInputDialog(null, "Enter Renter ID:");
+                    String takenDateString = JOptionPane.showInputDialog(null, "Enter Taken Date (MM/DD/YYYY):");
+                    String returnDateString = JOptionPane.showInputDialog(null, "Enter Return Date (MM/DD/YYYY):");
+                    String bookLostStr = JOptionPane.showInputDialog(null, "Was the Book Lost? (Y/N):");
+
+                    //Date takenDate = parseDate(takenDateString);
+                    //Date returnDate = parseDate(returnDateString);
+                    boolean bookLost = Boolean.parseBoolean(bookLostStr); //change boolean to a char
+
+                    Transaction transaction = new Transaction(takenDate, returnDate, null, bookLost, 0, renterID, 0);
+
+                    Date dueDate = transaction.calculateDueDate();
+                    double durationGone = transaction.timeBookOut(new Date());
+                    double lateFee = transaction.calculateLateFee();
+
+                    JOptionPane.showMessageDialog(null,
+                            "Due Date: " + dueDate +
+                                    "\nDuration Gone (in days): " + durationGone +
+                                    "\nLate Fee: $" + lateFee);
+
+                    break;
+                    */
+
                     String renterID = JOptionPane.showInputDialog(null, "Enter Renter ID:");
 
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
 
-                    SimpleDateFormat dateFormat = new SimpleDateFormat("MM/DD/YYYY");
-
-                    String takenDateInput = JOptionPane.showInputDialog(null, "Enter taken date:");
+                    String takenDateInput = JOptionPane.showInputDialog(null, "Enter taken date (MM/DD/YYYY):");
+                    Date takenDate = null;
 
                     try {
-                        Date takenDate = dateFormat.parse(takenDateInput);
+                        takenDate = dateFormat.parse(takenDateInput);
                     } catch (ParseException e) {
-                        throw new RuntimeException(e);
+                        throw new RuntimeException("Invalid date format for taken date. Please use MM/DD/YYYY.");
                     }
 
-                    String returnDateInput = JOptionPane.showInputDialog(null, "Enter return date:");
+                    String returnDateInput = JOptionPane.showInputDialog(null, "Enter return date (MM/DD/YYYY):");
+                    Date returnDate = null;
 
                     try {
-                        Date returnDate = dateFormat.parse(returnDateInput);
+                        returnDate = dateFormat.parse(returnDateInput);
                     } catch (ParseException e) {
-                        throw new RuntimeException(e);
+                        throw new RuntimeException("Invalid date format for return date. Please use MM/DD/YYYY.");
                     }
 
                     String bookLost = JOptionPane.showInputDialog(null, "Is book lost? Y/N");
 
-                    Transaction newTransaction = new Transaction(renterID, takenDateInput, returnDateInput, bookLost);
+                    Transaction newTransaction = new Transaction(renterID, takenDate, returnDate, bookLost);
 
-                    break;
+                    Date dueDate = newTransaction.calculateDueDate();
+                    double durationGone = newTransaction.timeBookOut(new Date());
+                    double lateFee = newTransaction.calculateLateFee();
+
+                    JOptionPane.showMessageDialog(null,
+                            "Due Date: " + dueDate +
+                                    "\nDuration Gone (in days): " + durationGone +
+                                    "\nLate Fee: $" + lateFee);
 
                 case 5:
                     System.exit(0); // this exits it when they press exit
