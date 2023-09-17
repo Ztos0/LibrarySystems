@@ -50,7 +50,7 @@ public class LibraryUI {
         updateButtonBasedOnState();
         removeButton.addActionListener(e -> removeSelectedItemBasedOnState());
     }
-    private void updateButtonBasedOnState(){
+    private void updateButtonBasedOnState(){ // updates the nanme of button, using displaystate.
         if (currentState == DisplayState.BOOKS){
             removeButton.setText("Remove selected book");
         } else if (currentState == DisplayState.USERS){
@@ -59,7 +59,7 @@ public class LibraryUI {
             removeButton.setText("Remove selected transaction");
         }
     }
-    private void removeSelectedItemBasedOnState(){
+    private void removeSelectedItemBasedOnState(){ //removed item when selecting it
         int selectedRow = table.getSelectedRow();
         if (selectedRow == -1){
             JOptionPane.showMessageDialog(null,"Please select an item to remove.");
@@ -67,7 +67,7 @@ public class LibraryUI {
         }
         model.removeRow(selectedRow);
     }
-    private void removeSelectedBook(){
+    private void removeSelectedBook(){ // removes book that you chose to select
         int selectedRow = table.getSelectedRow();
         if (selectedRow != -1){
             model.removeRow(selectedRow);
@@ -76,7 +76,7 @@ public class LibraryUI {
         }
     }
 
-    public void displayUsers(List<User> users) {
+    public void displayUsers(List<User> users) { // setups column names for the user info switch
         model.setRowCount(0);
         model.setColumnIdentifiers(new String[]{"User Name", "User ID", "User Age", "User Address", "Librarian Name"});
 
@@ -88,7 +88,7 @@ public class LibraryUI {
        updateButtonBasedOnState();
     }
 
-    public void displayBooks(List<Book> books) {
+    public void displayBooks(List<Book> books) { // setups column names for the book info switch
         model.setRowCount(0);
         model.setColumnIdentifiers(new String[]{"User ID", "Book Name", "Book Genre", "Book Author", "Book Publisher", "Book Release Date", "Book Cost", "Book Date"});
 
@@ -98,7 +98,7 @@ public class LibraryUI {
         currentState = DisplayState.BOOKS;
         updateButtonBasedOnState();
     }
-    public void displayTransaction(Transaction transaction) {
+    public void displayTransaction(Transaction transaction) { // setsups column names and format for the transaction info
         SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
         Date dueDate = transaction.calculateDueDate();
         double durationGone = transaction.timeBookOut();
@@ -134,9 +134,9 @@ public class LibraryUI {
 
 
     public void showTable() {
-        tableDialog.setVisible(true); // This makes the dialog appear and pauses the rest until closed
+        tableDialog.setVisible(true); // this makes the dialog appear and pauses the rest until closed
     }
-    public void displayTransactions(ArrayList<Transaction> transactions) {
+    public void displayTransactions(ArrayList<Transaction> transactions) { // displays transactions and uses a string builder to append
         StringBuilder builder = new StringBuilder();
         builder.append("Transactions:\n");
 
