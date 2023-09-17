@@ -1,30 +1,39 @@
 package PACKAGE_NAME;
 
 import javax.swing.*;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 
 public class Library {
+
+    private String storedUsername = "";
+    private String storedPassword = "";
 
     private ArrayList<Book> Books;// these are never used, we need to fix these
     private ArrayList<User> Users; // these are never used, we need to fix these
 
-    private ArrayList<Transaction> Transactions;
+    private LibraryUI LibUI = new LibraryUI();
 
     public Library(){
         Books = new ArrayList<>();// add these to try and fix arrays
         Users = new ArrayList<>();// add these to try and fix arrays
-        Transactions = new ArrayList<>();
+    }
 
+    public void signUp(){
+        storedUsername = JOptionPane.showInputDialog("Enter a new username:");
+        storedPassword = JOptionPane.showInputDialog("Enter a new password: ");
+        JOptionPane.showMessageDialog(null, "Sign up successful!");
+    }
+    public boolean logIn(){
+        String username = JOptionPane.showInputDialog("Enter your username:");
+        String password = JOptionPane.showInputDialog("Enter your password:");
 
+        return storedUsername.equals(username) && storedPassword.equals(password);
     }
 
 
     private void MainMenu() {
         while (true) {
-            String[] options = {"Add Book", "Add Renter Info", "Book Info", "Renter Info","Transactions","Exit"};
+            String[] options = {"Add Book", "Add Renter Info", "Book Info", "Renter Info", "Exit"};
             int selection = JOptionPane.showOptionDialog(null, "Select an action:",
                     "Library Manager", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
 
@@ -35,7 +44,7 @@ public class Library {
                     String bookGenre = JOptionPane.showInputDialog(null, "Enter Book Genre:");
                     String bookAuthor = JOptionPane.showInputDialog(null, "Enter Book Author:");
                     String bookPublisher = JOptionPane.showInputDialog(null, "Enter Book Publisher:");
-                    String bookReleaseDate = JOptionPane.showInputDialog(null, "Enter Book release date 00/00/0000:");
+                    String bookReleaseDate = JOptionPane.showInputDialog(null, "Enter Book release date:");
                     String bookCostStr = JOptionPane.showInputDialog(null, "Enter Book Price:");
                     String bookDate = JOptionPane.showInputDialog(null, "When was the book rented? 00/00/0000");
                     // JOptionPane showInputDialog shows the input dialog option when the user selections " Add Book"
@@ -76,67 +85,87 @@ public class Library {
                 case 2:
 
                     String bookInfo = JOptionPane.showInputDialog(null, "Enter ID:");
+                    Book foundBook = null;
                     for (Book book : Books) {
                         if (book.getUserID().equalsIgnoreCase(bookInfo)) {
-                            // Display book information
-                            JOptionPane.showMessageDialog(null, book.toString());
-                            return;
+                            foundBook = book;
+                            break;
                         }
                     }
-                    JOptionPane.showMessageDialog(null, "Book not found.");
-
-
-
-
+                    if (foundBook != null) {
+                        ArrayList<Book> singleBookList = new ArrayList<>();
+                        singleBookList.add(foundBook);
+                        LibUI.displayBooks(singleBookList);
+                        LibUI.showTable();
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Book not found.");
+                    }
                     break;
+
                 case 3:
                     String userInfo = JOptionPane.showInputDialog(null, "Enter Renter ID:");
+                    User foundUser = null;
                     for (User user : Users) {
                         if (user.getUserID().equalsIgnoreCase(userInfo)) {
-                            // Display renter information
-                            JOptionPane.showMessageDialog(null, user.toString());
-                            return;
+                            foundUser = user;
+                            break;
                         }
                     }
-                    JOptionPane.showMessageDialog(null, "Renter ID not found.");
+                    if (foundUser != null) {
+                        ArrayList<User> singleUserList = new ArrayList<>();
+                        singleUserList.add(foundUser);
+                        LibUI.displayUsers(singleUserList);
+                        LibUI.showTable();
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Renter ID not found.");
+                    }
+
 
                     break;
                 case 4:
 
-                    String returnDateInput = JOptionPane.showInputDialog(null, "Enter return date (MM-DD-YYYY):");
-
-                    try {
-                        SimpleDateFormat dateFormat = new SimpleDateFormat("MM-dd-yyyy");
-                        Date returnDate = dateFormat.parse(returnDateInput);
-
-                        String renterID = JOptionPane.showInputDialog(null, "Enter Renter ID:");
-                        int age = Integer.parseInt(JOptionPane.showInputDialog(null, "Enter Age:"));
-                        String address = JOptionPane.showInputDialog(null, "Enter Address:");
-                        String name = JOptionPane.showInputDialog(null, "Enter Name:");
-
-                        Transaction transact = new Transaction(renterID, returnDate, address, false, age, 0.0);
-                        Transactions.add(transact);
-
-                    } catch (ParseException e) {
-                        JOptionPane.showMessageDialog(null, "Invalid date format. Please enter a date in MM-DD-YYYY format.");
-                    } catch (NumberFormatException e) {
-                        JOptionPane.showMessageDialog(null, "Invalid age. Please enter a valid integer.");
-                    }
-                    break;
-
-                case 5:
-
-                            System.exit(0); // this exits it when they press exit
-                    }
-            }//gf
+                    System.exit(0); // this exits it when they press exit
+            }
         }
-
+    }
 
     public static void main(String[] args) {
         Library library = new Library();
+
+        String[] options = {"Sign Up", "Log in"};
+        int choice = JOptionPane.showOptionDialog(null, "Choose an action:",
+                "Library Access", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
+
+        boolean isLoginSuccessful = false;
+
+        while (!isLoginSuccessful) {
+            if (choice == 0) {
+                library.signUp();
+            }
+
+            isLoginSuccessful = library.logIn();
+
+            if (!isLoginSuccessful) {
+                String[] retryOptions = {"Sign Up", "Try Again", "Exit"};
+                int retryChoice = JOptionPane.showOptionDialog(null, "Login failed. What would you like to do next?",
+                        "Login", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, retryOptions, retryOptions[0]);
+
+                switch (retryChoice) {
+                    case 0: // Sign Up option chosen
+                        choice = 0;
+                        break;
+                    case 1: // Try Again option chosen
+                        choice = 1;
+                        break;
+                    case 2: // Exit option chosen
+                        System.exit(0);
+                        break;
+                }
+            }
+        }
+
+        JOptionPane.showMessageDialog(null, "Login successful!");
         library.MainMenu();
-
-
     }
 
 }//end of Library
