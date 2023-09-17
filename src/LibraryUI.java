@@ -5,6 +5,9 @@ import javax.swing.border.Border;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.util.List;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.ArrayList;
 
 public class LibraryUI {
 
@@ -16,7 +19,7 @@ public class LibraryUI {
     private JButton removeButton;
 
     private enum DisplayState{
-        USERS , BOOKS
+        USERS , BOOKS , TRANSACTIONS
     }
 
     private DisplayState currentState;
@@ -52,6 +55,8 @@ public class LibraryUI {
             removeButton.setText("Remove selected book");
         } else if (currentState == DisplayState.USERS){
             removeButton.setText("Remove selected user");
+        } else if (currentState == DisplayState.TRANSACTIONS){
+            removeButton.setText("Remove selected transaction");
         }
     }
     private void removeSelectedItemBasedOnState(){
@@ -93,8 +98,52 @@ public class LibraryUI {
         currentState = DisplayState.BOOKS;
         updateButtonBasedOnState();
     }
+    public void displayTransaction(Transaction transaction) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+        Date dueDate = transaction.calculateDueDate();
+        double durationGone = transaction.timeBookOut(new Date());
+        double lateFee = transaction.calculateLateFee();
+
+        model.setRowCount(0); // Clear the table
+        model.setColumnIdentifiers(new String[]{
+                "Renter ID",
+                "Taken Date",
+                "Return Date",
+                "Book Lost",
+                "Due Date",
+                "Duration Gone (in days)",
+                "Late Fee"
+        });
+
+        model.addRow(new Object[]{
+                transaction.getRenterID(),
+                dateFormat.format(transaction.getTakenDate()),
+                dateFormat.format(transaction.getReturnDate()),
+                transaction.getBookLost() == 'Y' ? "Yes" : "No",
+                dateFormat.format(dueDate),
+                durationGone,
+                "$" + String.format("%.2f", lateFee)
+        });
+
+        //set to transactions, makes it so you can remove transactions with the action viewer
+        currentState = DisplayState.TRANSACTIONS;
+        updateButtonBasedOnState();
+
+        showTable();
+    }
+
 
     public void showTable() {
         tableDialog.setVisible(true); // This makes the dialog appear and pauses the rest until closed
+    }
+    public void displayTransactions(ArrayList<Transaction> transactions) {
+        StringBuilder builder = new StringBuilder();
+        builder.append("Transactions:\n");
+
+        for (Transaction transaction : transactions) {
+            builder.append(transaction.toString()).append("\n");
+        }
+
+        JOptionPane.showMessageDialog(null, builder.toString());
     }
 }
