@@ -5,22 +5,6 @@ public class User {
     public User() {
 
     }
-
-
-
-    @Override
-    public String toString() {
-        String format = "%-20s%s%n";
-       StringBuilder sb = new StringBuilder();
-        sb.append("+---------------------+\n");
-       sb.append(String.format(format, "Renter Name :\t", userName));
-        sb.append(String.format(format, "ID:\t\t", userID));
-        sb.append(String.format(format, "Age:\t\t", userAge));
-        sb.append(String.format(format, "Address:\t\t", userAddress));
-        sb.append(String.format(format, "Librarian Name:\t", librarianName));
-        sb.append("+---------------------+\n");
-        return sb.toString();
-    }
     private String userName;
     private String userID;
     private int userAge;
