@@ -121,7 +121,6 @@ public class Library {
 
                     break;
                 case 4:
-
                     System.exit(0); // this exits it when they press exit
             }
         }
