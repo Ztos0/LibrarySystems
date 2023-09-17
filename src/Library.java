@@ -75,7 +75,7 @@ public class Library {
                     Book newBook = new Book(userID,bookName, bookGenre, bookAuthor, bookPublisher, bookReleaseDate, bookCost, bookDate);
 
                     newBook.setBookName(bookName);
-                    Books.add(newBook);// this never reach the arraylist
+                    Books.add(newBook);// makes it so that we can list multiple book under BookInfo
                     break;
                 case 1:
 
@@ -137,8 +137,9 @@ public class Library {
                     Transactions.add(newTransaction);
                     LibUI.displayTransaction(newTransaction);
                     Date dueDate = newTransaction.calculateDueDate();
-                    double durationGone = newTransaction.timeBookOut(new Date());
+                    double durationGone = newTransaction.timeBookOut();
                     double lateFee = newTransaction.calculateLateFee();
+
                     //holds data to send it to case 5
                     break;
                 case 3:
