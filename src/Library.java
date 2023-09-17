@@ -124,7 +124,6 @@ public class Library {
 
                     break;
                 case 4:
-                    //Transaction transact = new Transaction(); 
 
                     String renterID = JOptionPane.showInputDialog(null, "Enter Renter ID:");
 
@@ -147,7 +146,13 @@ public class Library {
                         throw new RuntimeException(e);
                     }
 
+                    String bookLost = JOptionPane.showInputDialog(null, "Is book lost? Y/N");
 
+                    Transaction newTransaction = new Transaction(renterID, takenDateInput, returnDateInput, bookLost);
+
+                    break;
+
+                case 5:
                     System.exit(0); // this exits it when they press exit
             }
         }
