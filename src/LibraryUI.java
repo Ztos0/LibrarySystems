@@ -15,6 +15,12 @@ public class LibraryUI {
 
     private JButton removeButton;
 
+    private enum DisplayState{
+        USERS , BOOKS
+    }
+
+    private DisplayState currentState;
+
     public LibraryUI() {
         model = new DefaultTableModel();
         table = new JTable(model);
@@ -23,7 +29,7 @@ public class LibraryUI {
         // Initialize the dialog
         tableDialog = new JDialog();
         tableDialog.setModal(true);
-        tableDialog.setSize(800, 600); // Set the size or you can pack() it later
+        tableDialog.setSize(850, 500); // set size of dialog box
         tableDialog.add(scrollPane);
         //creating a panel that removes a book
         JPanel buttonPanel = new JPanel();
@@ -37,7 +43,24 @@ public class LibraryUI {
         //creates an event listener.
         //an event listener is a function that waits for an event to occur.
         //such as, a user clicking a button.
-        removeButton.addActionListener(e -> removeSelectedBook());
+        currentState = DisplayState.BOOKS;
+        updateButtonBasedOnState();
+        removeButton.addActionListener(e -> removeSelectedItemBasedOnState());
+    }
+    private void updateButtonBasedOnState(){
+        if (currentState == DisplayState.BOOKS){
+            removeButton.setText("Remove selected book");
+        } else if (currentState == DisplayState.USERS){
+            removeButton.setText("Remove selected user");
+        }
+    }
+    private void removeSelectedItemBasedOnState(){
+        int selectedRow = table.getSelectedRow();
+        if (selectedRow == -1){
+            JOptionPane.showMessageDialog(null,"Please select an item to remove.");
+            return;
+        }
+        model.removeRow(selectedRow);
     }
     private void removeSelectedBook(){
         int selectedRow = table.getSelectedRow();
@@ -54,7 +77,10 @@ public class LibraryUI {
 
         for (User user : users) {
             model.addRow(new Object[]{user.getUserName(), user.getUserID(), user.getUserAge(), user.getUserAddress(), user.getLibrarianName()});
+
         }
+        currentState = DisplayState.USERS;
+       updateButtonBasedOnState();
     }
 
     public void displayBooks(List<Book> books) {
@@ -64,6 +90,8 @@ public class LibraryUI {
         for (Book book : books) {
             model.addRow(new Object[]{book.getUserID(), book.getBookName(), book.getBookGenre(), book.getBookAuthor(), book.getBookPublisher(), book.getbookReleaseDate(), book.getBookCost(), book.getbookDate()});
         }
+        currentState = DisplayState.BOOKS;
+        updateButtonBasedOnState();
     }
 
     public void showTable() {
