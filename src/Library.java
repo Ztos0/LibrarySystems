@@ -1,10 +1,7 @@
 package PACKAGE_NAME;
 
 import javax.swing.*;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 
 public class Library {
 
@@ -14,24 +11,21 @@ public class Library {
     private ArrayList<Book> Books;// these are never used, we need to fix these
     private ArrayList<User> Users; // these are never used, we need to fix these
 
-    private ArrayList<Transaction> Transactions;
-
     private LibraryUI LibUI = new LibraryUI();
 
     public Library(){
         Books = new ArrayList<>();// add these to try and fix arrays
         Users = new ArrayList<>();// add these to try and fix arrays
-        Transactions = new ArrayList<>();
     }
 
     public void signUp(){
         storedUsername = JOptionPane.showInputDialog("Enter a new username:");
-        storedPassword = JOptionPane.showInputDialog("Enter a new password: ");
+        storedPassword = passwordInput("Enter a new password: "); // the passwordInput variable makes it so its hidden when user is inputting
         JOptionPane.showMessageDialog(null, "Sign up successful!");
     }
     public boolean logIn(){
         String username = JOptionPane.showInputDialog("Enter your username:");
-        String password = JOptionPane.showInputDialog("Enter your password:");
+        String password = passwordInput("Enter your password:");
 
         return storedUsername.equals(username) && storedPassword.equals(password);
     }
@@ -39,7 +33,7 @@ public class Library {
 
     private void MainMenu() {
         while (true) {
-            String[] options = {"Add Book", "Add Renter Info", "Book Info", "Renter Info","Transactions","Exit"};
+            String[] options = {"Add Book", "Add Renter Info", "Book Info", "Renter Info", "Exit"};
             int selection = JOptionPane.showOptionDialog(null, "Select an action:",
                     "Library Manager", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
 
@@ -50,7 +44,7 @@ public class Library {
                     String bookGenre = JOptionPane.showInputDialog(null, "Enter Book Genre:");
                     String bookAuthor = JOptionPane.showInputDialog(null, "Enter Book Author:");
                     String bookPublisher = JOptionPane.showInputDialog(null, "Enter Book Publisher:");
-                    String bookReleaseDate = JOptionPane.showInputDialog(null, "Enter Book release date 00/00/0000:");
+                    String bookReleaseDate = JOptionPane.showInputDialog(null, "Enter Book release date:");
                     String bookCostStr = JOptionPane.showInputDialog(null, "Enter Book Price:");
                     String bookDate = JOptionPane.showInputDialog(null, "When was the book rented? 00/00/0000");
                     // JOptionPane showInputDialog shows the input dialog option when the user selections " Add Book"
@@ -89,22 +83,19 @@ public class Library {
 
                     break;
                 case 2:
-
                     String bookInfo = JOptionPane.showInputDialog(null, "Enter ID:");
-                    Book foundBook = null;
-                    for (Book book : Books) {
-                        if (book.getUserID().equalsIgnoreCase(bookInfo)) {
-                            foundBook = book;
-                            break;
+                    ArrayList<Book> filteredBooks = new ArrayList<>();
+
+                    for (Book book : Books){
+                        if (book.getUserID().equalsIgnoreCase(bookInfo)){
+                            filteredBooks.add(book);
                         }
                     }
-                    if (foundBook != null) {
-                        ArrayList<Book> singleBookList = new ArrayList<>();
-                        singleBookList.add(foundBook);
-                        LibUI.displayBooks(singleBookList);
+                    if (!filteredBooks.isEmpty()){
+                        LibUI.displayBooks(filteredBooks);
                         LibUI.showTable();
-                    } else {
-                        JOptionPane.showMessageDialog(null, "Book not found.");
+                    } else{
+                        JOptionPane.showMessageDialog(null, "No books were found under that ID.");
                     }
                     break;
 
@@ -129,32 +120,19 @@ public class Library {
 
                     break;
                 case 4:
-                    String returnDateInput = JOptionPane.showInputDialog(null, "Enter return date (MM-DD-YYYY):");
-
-                    try {
-                        SimpleDateFormat dateFormat = new SimpleDateFormat("MM-dd-yyyy");
-                        Date returnDate = dateFormat.parse(returnDateInput);
-
-                        String renterID = JOptionPane.showInputDialog(null, "Enter Renter ID:");
-                        int age = Integer.parseInt(JOptionPane.showInputDialog(null, "Enter Age:"));
-                        String address = JOptionPane.showInputDialog(null, "Enter Address:");
-                        String name = JOptionPane.showInputDialog(null, "Enter Name:");
-
-                        Transaction transact = new Transaction(renterID, returnDate, address, false, age, 0.0);
-                        Transactions.add(transact);
-
-                    } catch (ParseException e) {
-                        JOptionPane.showMessageDialog(null, "Invalid date format. Please enter a date in MM-DD-YYYY format.");
-                    } catch (NumberFormatException e) {
-                        JOptionPane.showMessageDialog(null, "Invalid age. Please enter a valid integer.");
-                    }
-                    break;
-                case 5:
-            
 
                     System.exit(0); // this exits it when they press exit
             }
         }
+    }
+
+    public static String passwordInput(String message){
+        JPasswordField passwordField = new JPasswordField();
+        Object[] obj = {message, passwordField};
+        if (JOptionPane.showConfirmDialog(null, obj, "Password", JOptionPane.OK_CANCEL_OPTION) == JOptionPane.OK_OPTION){
+            return new String (passwordField.getPassword());
+        }
+        return null;
     }
 
     public static void main(String[] args) {
