@@ -1,4 +1,5 @@
 package PACKAGE_NAME;
+import java.text.DecimalFormat;
 import java.util.Date;
 import java.util.Calendar;
 import java.util.concurrent.TimeUnit;
@@ -114,12 +115,15 @@ public class Transaction {
         double lateFeeRatePerDay = 0.10;
 
         Date currentDate = new Date();
-
         long daysOverdue = calculateDaysOverdue(currentDate);
 
         double lateFee = lateFeeRatePerDay * daysOverdue;
 
-        return lateFee;
+        DecimalFormat decimalFormat = new DecimalFormat("0.00");
+
+        String formattedLateFee = decimalFormat.format(lateFee);
+
+        return Double.parseDouble(formattedLateFee);
     }
 
     private long calculateDaysOverdue(Date currentDate) {
