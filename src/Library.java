@@ -2,6 +2,9 @@ package PACKAGE_NAME;
 
 import javax.swing.*;
 import java.util.ArrayList;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class Library {
 
@@ -121,6 +124,30 @@ public class Library {
 
                     break;
                 case 4:
+                    //Transaction transact = new Transaction(); 
+
+                    String renterID = JOptionPane.showInputDialog(null, "Enter Renter ID:");
+
+
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("MM/DD/YYYY");
+
+                    String takenDateInput = JOptionPane.showInputDialog(null, "Enter taken date:");
+
+                    try {
+                        Date takenDate = dateFormat.parse(takenDateInput);
+                    } catch (ParseException e) {
+                        throw new RuntimeException(e);
+                    }
+
+                    String returnDateInput = JOptionPane.showInputDialog(null, "Enter return date:");
+
+                    try {
+                        Date returnDate = dateFormat.parse(returnDateInput);
+                    } catch (ParseException e) {
+                        throw new RuntimeException(e);
+                    }
+
+
                     System.exit(0); // this exits it when they press exit
             }
         }
