@@ -20,12 +20,12 @@ public class Library {
 
     public void signUp(){
         storedUsername = JOptionPane.showInputDialog("Enter a new username:");
-        storedPassword = JOptionPane.showInputDialog("Enter a new password: ");
+        storedPassword = passwordInput("Enter a new password: "); // the passwordInput variable makes it so its hidden when user is inputting
         JOptionPane.showMessageDialog(null, "Sign up successful!");
     }
     public boolean logIn(){
         String username = JOptionPane.showInputDialog("Enter your username:");
-        String password = JOptionPane.showInputDialog("Enter your password:");
+        String password = passwordInput("Enter your password:");
 
         return storedUsername.equals(username) && storedPassword.equals(password);
     }
@@ -83,22 +83,19 @@ public class Library {
 
                     break;
                 case 2:
-
                     String bookInfo = JOptionPane.showInputDialog(null, "Enter ID:");
-                    Book foundBook = null;
-                    for (Book book : Books) {
-                        if (book.getUserID().equalsIgnoreCase(bookInfo)) {
-                            foundBook = book;
-                            break;
+                    ArrayList<Book> filteredBooks = new ArrayList<>();
+
+                    for (Book book : Books){
+                        if (book.getUserID().equalsIgnoreCase(bookInfo)){
+                            filteredBooks.add(book);
                         }
                     }
-                    if (foundBook != null) {
-                        ArrayList<Book> singleBookList = new ArrayList<>();
-                        singleBookList.add(foundBook);
-                        LibUI.displayBooks(singleBookList);
+                    if (!filteredBooks.isEmpty()){
+                        LibUI.displayBooks(filteredBooks);
                         LibUI.showTable();
-                    } else {
-                        JOptionPane.showMessageDialog(null, "Book not found.");
+                    } else{
+                        JOptionPane.showMessageDialog(null, "No books were found under that ID.");
                     }
                     break;
 
@@ -127,6 +124,15 @@ public class Library {
                     System.exit(0); // this exits it when they press exit
             }
         }
+    }
+
+    public static String passwordInput(String message){
+        JPasswordField passwordField = new JPasswordField();
+        Object[] obj = {message, passwordField};
+        if (JOptionPane.showConfirmDialog(null, obj, "Password", JOptionPane.OK_CANCEL_OPTION) == JOptionPane.OK_OPTION){
+            return new String (passwordField.getPassword());
+        }
+        return null;
     }
 
     public static void main(String[] args) {

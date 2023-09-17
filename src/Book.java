@@ -1,24 +1,6 @@
 package PACKAGE_NAME;
 
 public class Book  {
-    @Override
-    public String toString() {
-        String format = "%-20s%s%n";
-        StringBuilder sb = new StringBuilder();
-        sb.append("+---------------------+\n");
-        sb.append(String.format(format, "Book Name:", bookName));
-        sb.append(String.format(format, "User ID:", userID));
-        sb.append(String.format(format, "Book Genre:", bookGenre));
-        sb.append(String.format(format, "Book Author:", bookAuthor));
-        sb.append(String.format(format, "Book Publisher:", bookPublisher));
-        sb.append(String.format(format, "Book Release Date:", bookReleaseDate));
-        sb.append(String.format(format, "Book Cost:", bookCost));
-        sb.append(String.format(format, "Book Date:", bookDate));
-        sb.append("+---------------------+\n");
-        return sb.toString();
-    }
-
-
     private String bookName;
     private String bookGenre;
     private String bookAuthor;

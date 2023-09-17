@@ -5,19 +5,6 @@ import java.util.concurrent.TimeUnit;
 
 public class Transaction {
 
-    @Override
-    public String toString(){
-        String format = "%-20s%s%n";
-        StringBuilder sb = new StringBuilder();
-        sb.append("+---------------------+\n");
-        sb.append(String.format(format, "Date book was rented:", takenDate));
-        sb.append(String.format(format, "Date book was returned:", returnDate));
-        sb.append(String.format(format, "Current due date for the book:", dueDate));
-        sb.append(String.format(format, "Time the book was out for:", timeBookOut));
-        sb.append(String.format(format, "Is the book lost:", bookLost));
-        sb.append("+---------------------+\n");
-        return sb.toString();
-    }
     private Date takenDate;
 
     private Date returnDate;
