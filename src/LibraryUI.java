@@ -101,7 +101,7 @@ public class LibraryUI {
     public void displayTransaction(Transaction transaction) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
         Date dueDate = transaction.calculateDueDate();
-        double durationGone = transaction.timeBookOut(new Date());
+        double durationGone = transaction.timeBookOut();
         double lateFee = transaction.calculateLateFee();
 
         model.setRowCount(0); // Clear the table
