@@ -1,16 +1,22 @@
 package PACKAGE_NAME;
 
 import javax.swing.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class Library {
 
     private ArrayList<Book> Books;// these are never used, we need to fix these
     private ArrayList<User> Users; // these are never used, we need to fix these
 
+    private ArrayList<Transaction> Transactions;
+
     public Library(){
         Books = new ArrayList<>();// add these to try and fix arrays
         Users = new ArrayList<>();// add these to try and fix arrays
+        Transactions = new ArrayList<>();
 
 
     }
@@ -18,7 +24,7 @@ public class Library {
 
     private void MainMenu() {
         while (true) {
-            String[] options = {"Add Book", "Add Renter Info", "Book Info", "Renter Info", "Exit"};
+            String[] options = {"Add Book", "Add Renter Info", "Book Info", "Renter Info","Transactions","Exit"};
             int selection = JOptionPane.showOptionDialog(null, "Select an action:",
                     "Library Manager", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
 
@@ -97,10 +103,34 @@ public class Library {
                     break;
                 case 4:
 
-                    System.exit(0); // this exits it when they press exit
+                    String returnDateInput = JOptionPane.showInputDialog(null, "Enter return date (MM-DD-YYYY):");
+
+                    try {
+                        SimpleDateFormat dateFormat = new SimpleDateFormat("MM-dd-yyyy");
+                        Date returnDate = dateFormat.parse(returnDateInput);
+
+                        String renterID = JOptionPane.showInputDialog(null, "Enter Renter ID:");
+                        int age = Integer.parseInt(JOptionPane.showInputDialog(null, "Enter Age:"));
+                        String address = JOptionPane.showInputDialog(null, "Enter Address:");
+                        String name = JOptionPane.showInputDialog(null, "Enter Name:");
+
+                        Transaction transact = new Transaction(renterID, returnDate, address, false, age, 0.0);
+                        Transactions.add(transact);
+
+                    } catch (ParseException e) {
+                        JOptionPane.showMessageDialog(null, "Invalid date format. Please enter a date in MM-DD-YYYY format.");
+                    } catch (NumberFormatException e) {
+                        JOptionPane.showMessageDialog(null, "Invalid age. Please enter a valid integer.");
+                    }
+                    break;
+
+                case 5:
+
+                            System.exit(0); // this exits it when they press exit
+                    }
             }
         }
-    }
+
 
     public static void main(String[] args) {
         Library library = new Library();

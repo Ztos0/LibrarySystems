@@ -5,6 +5,9 @@ import java.util.concurrent.TimeUnit;
 
 public class Transaction {
 
+    public Transaction(String renterID, Date returnDate, String address, boolean bookLost, int age, double lateFee) {
+    }
+
     @Override
     public String toString(){
         String format = "%-20s%s%n";
