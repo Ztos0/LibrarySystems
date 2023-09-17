@@ -6,6 +6,8 @@ import java.util.concurrent.TimeUnit;
 
 public class Transaction {
 
+    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+
     private Date takenDate;
 
     private Date returnDate;
@@ -116,26 +118,29 @@ public class Transaction {
 
         Date currentDate = new Date();
 
-        long daysOverdue = calculateDaysOverdue(currentDate);
+        long daysOverdue = calculateDaysOverdue();
 
         double lateFee = lateFeeRatePerDay * daysOverdue;
 
         return lateFee;
     }
 
-    private long calculateDaysOverdue(Date currentDate) {
-
-        if (returnDate == null || returnDate.after(currentDate)) {
-
-            return 0;
+    private long calculateDaysOverdue() {
+        Date currentDate = new Date();
+        if (isOverdue()) {
+            if (returnDate == null) {
+                return TimeUnit.DAYS.convert(currentDate.getTime() - dueDate.getTime(), TimeUnit.MILLISECONDS);
+            } else {
+                return TimeUnit.DAYS.convert(returnDate.getTime() - dueDate.getTime(), TimeUnit.MILLISECONDS);
+            }
         }
-
-        long diffInMilliseconds = currentDate.getTime() - returnDate.getTime();
-        return TimeUnit.DAYS.convert(diffInMilliseconds, TimeUnit.MILLISECONDS);
+        return 0;
     }
 
-    public double timeBookOut(Date currentDate){
-        long diffInMilliseconds = currentDate.getTime() - takenDate.getTime();
+
+    public double timeBookOut(){
+        Date endDate = (returnDate != null) ? returnDate : new Date();
+        long diffInMilliseconds = endDate.getTime() - takenDate.getTime();
         return TimeUnit.DAYS.convert(diffInMilliseconds, TimeUnit.MILLISECONDS);
     }
 
