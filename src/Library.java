@@ -11,11 +11,14 @@ public class Library {
     private ArrayList<Book> Books;// these are never used, we need to fix these
     private ArrayList<User> Users; // these are never used, we need to fix these
 
+    private ArrayList<Transaction> Transactions;
+
     private LibraryUI LibUI = new LibraryUI();
 
     public Library(){
         Books = new ArrayList<>();// add these to try and fix arrays
         Users = new ArrayList<>();// add these to try and fix arrays
+        Transactions = new ArrayList<>();
     }
 
     public void signUp(){
@@ -33,7 +36,7 @@ public class Library {
 
     private void MainMenu() {
         while (true) {
-            String[] options = {"Add Book", "Add Renter Info", "Book Info", "Renter Info", "Exit"};
+            String[] options = {"Add Book", "Add Renter Info", "Book Info", "Renter Info","Transactions","Exit"};
             int selection = JOptionPane.showOptionDialog(null, "Select an action:",
                     "Library Manager", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
 
@@ -44,7 +47,7 @@ public class Library {
                     String bookGenre = JOptionPane.showInputDialog(null, "Enter Book Genre:");
                     String bookAuthor = JOptionPane.showInputDialog(null, "Enter Book Author:");
                     String bookPublisher = JOptionPane.showInputDialog(null, "Enter Book Publisher:");
-                    String bookReleaseDate = JOptionPane.showInputDialog(null, "Enter Book release date:");
+                    String bookReleaseDate = JOptionPane.showInputDialog(null, "Enter Book release date 00/00/0000:");
                     String bookCostStr = JOptionPane.showInputDialog(null, "Enter Book Price:");
                     String bookDate = JOptionPane.showInputDialog(null, "When was the book rented? 00/00/0000");
                     // JOptionPane showInputDialog shows the input dialog option when the user selections " Add Book"
