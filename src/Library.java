@@ -14,6 +14,8 @@ public class Library {
     private ArrayList<Book> Books;// these are never used, we need to fix these
     private ArrayList<User> Users; // these are never used, we need to fix these
 
+    private ArrayList<Transaction> Transactions = new ArrayList<>();
+
     private LibraryUI LibUI = new LibraryUI();
 
     public Library(){
@@ -37,7 +39,7 @@ public class Library {
 
     private void MainMenu() {
         while (true) {
-            String[] options = {"Add Book", "Add Renter Info", "Book Info", "Renter Info", "Transaction", "Exit"};
+            String[] options = {"Add Book", "Add Renter Info", "Add Transaction Info", "Book Info", "Renter Info", "Transaction Info", "Exit"};
             int selection = JOptionPane.showOptionDialog(null, "Select an action:",
                     "Library Manager", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
 
@@ -87,43 +89,6 @@ public class Library {
 
                     break;
                 case 2:
-                    String bookInfo = JOptionPane.showInputDialog(null, "Enter ID:");
-                    ArrayList<Book> filteredBooks = new ArrayList<>();
-
-                    for (Book book : Books){
-                        if (book.getUserID().equalsIgnoreCase(bookInfo)){
-                            filteredBooks.add(book);
-                        }
-                    }
-                    if (!filteredBooks.isEmpty()){
-                        LibUI.displayBooks(filteredBooks);
-                        LibUI.showTable();
-                    } else{
-                        JOptionPane.showMessageDialog(null, "No books were found under that ID.");
-                    }
-                    break;
-
-                case 3:
-                    String userInfo = JOptionPane.showInputDialog(null, "Enter Renter ID:");
-                    User foundUser = null;
-                    for (User user : Users) {
-                        if (user.getUserID().equalsIgnoreCase(userInfo)) {
-                            foundUser = user;
-                            break;
-                        }
-                    }
-                    if (foundUser != null) {
-                        ArrayList<User> singleUserList = new ArrayList<>();
-                        singleUserList.add(foundUser);
-                        LibUI.displayUsers(singleUserList);
-                        LibUI.showTable();
-                    } else {
-                        JOptionPane.showMessageDialog(null, "Renter ID not found.");
-                    }
-
-
-                    break;
-                case 4:
                     String renterID = JOptionPane.showInputDialog(null, "Enter Renter ID:");
                     SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
 
@@ -145,25 +110,77 @@ public class Library {
                         break; // Exit the current case if there's an error
                     }
 
-                    String bookLostStr = JOptionPane.showInputDialog(null, "Is book lost? Y/N");
+                    String bookLostStr = JOptionPane.showInputDialog(null, "Is the book lost? Y/N");
                     if (bookLostStr == null || bookLostStr.isEmpty()) {
-                        JOptionPane.showMessageDialog(null, "Invalid input for book lost status.");
+                        JOptionPane.showMessageDialog(null, "Invalid input for the book's lost status.");
                         break;
                     }
                     char bookLost = bookLostStr.toUpperCase().charAt(0); // Convert to uppercase and get the first character
 
-                    Transaction newTransaction = new Transaction(renterID, takenDate, returnDate, bookLost); // Match the constructor from Transaction class
-
+                    Transaction newTransaction = new Transaction(renterID, takenDate, returnDate, bookLost);
+                    Transactions.add(newTransaction);
+                    LibUI.displayTransaction(newTransaction);
                     Date dueDate = newTransaction.calculateDueDate();
                     double durationGone = newTransaction.timeBookOut(new Date());
                     double lateFee = newTransaction.calculateLateFee();
+                    //holds data to send it to case 5
+                    break;
+                case 3:
+                    String bookInfo = JOptionPane.showInputDialog(null, "Enter ID:");
+                    ArrayList<Book> filteredBooks = new ArrayList<>();
 
-                    JOptionPane.showMessageDialog(null,
-                            "Due Date: " + dueDate +
-                                    "\nDuration Gone (in days): " + durationGone +
-                                    "\nLate Fee: $" + lateFee);
+                    for (Book book : Books){
+                        if (book.getUserID().equalsIgnoreCase(bookInfo)){
+                            filteredBooks.add(book);
+                        }
+                    }
+                    if (!filteredBooks.isEmpty()){
+                        LibUI.displayBooks(filteredBooks);
+                        LibUI.showTable();
+                    } else{
+                        JOptionPane.showMessageDialog(null, "No books were found under that ID.");
+                    }
+                    break;
+
+                case 4:
+                    String userInfo = JOptionPane.showInputDialog(null, "Enter Renter ID:");
+                    User foundUser = null;
+                    for (User user : Users) {
+                        if (user.getUserID().equalsIgnoreCase(userInfo)) {
+                            foundUser = user;
+                            break;
+                        }
+                    }
+                    if (foundUser != null) {
+                        ArrayList<User> singleUserList = new ArrayList<>();
+                        singleUserList.add(foundUser);
+                        LibUI.displayUsers(singleUserList);
+                        LibUI.showTable();
+                    } else {
+                        JOptionPane.showMessageDialog(null, "No renters were found under that ID.");
+                    }
+
+
                     break;
                 case 5:
+                    String transactionInfo = JOptionPane.showInputDialog(null, "Enter Renter ID:");
+                    ArrayList<Transaction> filteredTransactions = new ArrayList<>();
+
+                    for (Transaction transaction : Transactions) {
+                        if (transaction.getRenterID().equalsIgnoreCase(transactionInfo)) {
+                            filteredTransactions.add(transaction);
+                        }
+                    }
+
+                    if (!filteredTransactions.isEmpty()) {
+                        LibUI.displayTransactions(filteredTransactions);
+                        LibUI.showTable();
+                    } else {
+                        JOptionPane.showMessageDialog(null, "No transactions were found under that ID.");
+                    }
+                    break;
+
+                case 6:
                     System.exit(0); // this exits it when they press exit
             }
         }
